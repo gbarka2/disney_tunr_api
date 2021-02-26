@@ -1,0 +1,572 @@
+  [1m[35m (191.1ms)[0m  [1m[35mCREATE DATABASE "tunr_app_api_development" ENCODING = 'unicode'[0m
+  [1m[35m (93.2ms)[0m  [1m[35mCREATE DATABASE "tunr_app_api_test" ENCODING = 'unicode'[0m
+  [1m[35m (6.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (5.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1874975070089793210)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreatePlaylists (20210226145831)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (8.2ms)[0m  [1m[35mCREATE TABLE "playlists" ("id" bigserial primary key, "name" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210226145831"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateSongs (20210226145857)
+  [1m[36mTRANSACTION (4.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "songs" ("id" bigserial primary key, "title" character varying, "artist" character varying, "time" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210226145857"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-02-26 14:59:39.011248"], ["updated_at", "2021-02-26 14:59:39.011248"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(1874975070089793210)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1874975070089793210)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddForeignKeyToSongs (20210226153710)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (11.3ms)[0m  [1m[35mALTER TABLE "songs" ADD "playlist_id" integer[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210226153710"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(1874975070089793210)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Create (5.2ms)[0m  [1m[32mINSERT INTO "playlists" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "All Songs"], ["created_at", "2021-02-26 16:08:31.314820"], ["updated_at", "2021-02-26 16:08:31.314820"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Create (0.3ms)[0m  [1m[32mINSERT INTO "playlists" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Favorites"], ["created_at", "2021-02-26 16:08:31.323724"], ["updated_at", "2021-02-26 16:08:31.323724"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPlaylist Load (0.6ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists"[0m
+  [1m[36mSong Load (2.1ms)[0m  [1m[34mSELECT "songs".* FROM "songs"[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1874975070089793210)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddForeignKeyToSongs (20210226153710)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (11.2ms)[0m  [1m[35mALTER TABLE "songs" DROP COLUMN "playlist_id"[0m
+  [1m[36mActiveRecord::SchemaMigration Destroy (5.3ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = $1[0m  [["version", "20210226153710"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(1874975070089793210)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1874975070089793210)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddForeignKeyToSongs (20210226153710)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "songs" ADD "playlist_id" integer[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210226153710"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(1874975070089793210)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Create (0.6ms)[0m  [1m[32mINSERT INTO "playlists" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "All Songs"], ["created_at", "2021-02-26 16:10:37.874773"], ["updated_at", "2021-02-26 16:10:37.874773"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Create (0.3ms)[0m  [1m[32mINSERT INTO "playlists" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Favorites"], ["created_at", "2021-02-26 16:10:37.879196"], ["updated_at", "2021-02-26 16:10:37.879196"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.3ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.7ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "A Whole New World"], ["artist", "Aladin & Jasmine"], ["time", "3:42"], ["created_at", "2021-02-26 16:10:37.912296"], ["updated_at", "2021-02-26 16:10:37.912296"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.3ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.4ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Beauty And The Beast"], ["artist", "Mrs. Potts"], ["time", "4:11"], ["created_at", "2021-02-26 16:10:37.918347"], ["updated_at", "2021-02-26 16:10:37.918347"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.2ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.3ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Into The Unknown"], ["artist", "Queen Elsa"], ["time", "2:44"], ["created_at", "2021-02-26 16:10:37.923239"], ["updated_at", "2021-02-26 16:10:37.923239"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.2ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.2ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Bear Necessities"], ["artist", "Baloo"], ["time", "1:23"], ["created_at", "2021-02-26 16:10:37.928247"], ["updated_at", "2021-02-26 16:10:37.928247"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.2ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.4ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Never Had A Friend Like Me"], ["artist", "Genie"], ["time", "2:54"], ["created_at", "2021-02-26 16:10:37.933367"], ["updated_at", "2021-02-26 16:10:37.933367"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.3ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.3ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Hakuna Matata"], ["artist", "Timon & Pumba"], ["time", "2:30"], ["created_at", "2021-02-26 16:10:37.938305"], ["updated_at", "2021-02-26 16:10:37.938305"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.1ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.3ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "You're Welcome"], ["artist", "Maui"], ["time", "3:12"], ["created_at", "2021-02-26 16:10:37.943372"], ["updated_at", "2021-02-26 16:10:37.943372"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.1ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.3ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Love Is An Open Door"], ["artist", "Princess Anna & Prince Hans"], ["time", "1:55"], ["created_at", "2021-02-26 16:10:37.947715"], ["updated_at", "2021-02-26 16:10:37.947715"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.1ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.3ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "You'll Be In My Heart"], ["artist", "Tarzan"], ["time", "3:01"], ["created_at", "2021-02-26 16:10:37.952439"], ["updated_at", "2021-02-26 16:10:37.952439"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.2ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.3ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "You've Got A Friend In Me"], ["artist", "Woody"], ["time", "2:44"], ["created_at", "2021-02-26 16:10:37.957090"], ["updated_at", "2021-02-26 16:10:37.957090"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.1ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (1.0ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Colors Of The Wind"], ["artist", "Pocohontas"], ["time", "3:22"], ["created_at", "2021-02-26 16:10:37.961918"], ["updated_at", "2021-02-26 16:10:37.961918"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.1ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.3ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "A Dream Is A Wish Your Heart Makes"], ["artist", "Cinderella"], ["time", "1:56"], ["created_at", "2021-02-26 16:10:37.967106"], ["updated_at", "2021-02-26 16:10:37.967106"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.2ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.3ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "In Summer"], ["artist", "Olaf"], ["time", "2:12"], ["created_at", "2021-02-26 16:10:37.971780"], ["updated_at", "2021-02-26 16:10:37.971780"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.1ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Create (0.3ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Kiss The Girl"], ["artist", "Sebastian"], ["time", "2:22"], ["created_at", "2021-02-26 16:10:37.976225"], ["updated_at", "2021-02-26 16:10:37.976225"], ["playlist_id", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPlaylist Load (0.8ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists"[0m
+  [1m[36mSong Load (0.8ms)[0m  [1m[34mSELECT "songs".* FROM "songs"[0m
+  [1m[36mPlaylist Load (0.6ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists"[0m
+  [1m[36mPlaylist Destroy (1.2ms)[0m  [1m[31mDELETE FROM "playlists" WHERE "playlists"."id" = $1[0m  [["id", 3]]
+  [1m[36mPlaylist Load (0.6ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists"[0m
+  [1m[36mPlaylist Destroy (1.0ms)[0m  [1m[31mDELETE FROM "playlists" WHERE "playlists"."id" = $1[0m  [["id", 4]]
+  [1m[36mPlaylist Load (0.6ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists"[0m
+Started GET "/" for ::1 at 2021-02-26 09:14:01 -0700
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/garybarkauski/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0/gems/railties-6.1.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/garybarkauski/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0/gems/railties-6.1.3/lib/rails/templates/rails/welcome/index.html.erb (Duration: 11.4ms | Allocations: 470)
+Completed 200 OK in 28ms (Views: 18.1ms | ActiveRecord: 0.0ms | Allocations: 3966)
+
+
+Started GET "/favicon.ico" for ::1 at 2021-02-26 09:14:02 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/playlists" for ::1 at 2021-02-26 09:14:04 -0700
+Processing by PlaylistsController#index as HTML
+  [1m[36mPlaylist Load (0.6ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists"[0m
+  ↳ app/controllers/playlists_controller.rb:8:in `index'
+Completed 200 OK in 16ms (Views: 5.9ms | ActiveRecord: 6.3ms | Allocations: 5003)
+
+
+Started GET "/songs" for ::1 at 2021-02-26 09:14:10 -0700
+Processing by SongsController#index as HTML
+  [1m[36mSong Load (1.0ms)[0m  [1m[34mSELECT "songs".* FROM "songs"[0m
+  ↳ app/controllers/songs_controller.rb:8:in `index'
+Completed 200 OK in 18ms (Views: 9.4ms | ActiveRecord: 5.8ms | Allocations: 6255)
+
+
+  [1m[36mPlaylist Load (0.4ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSong Load (0.4ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."playlist_id" = $1[0m  [["playlist_id", 1]]
+Started GET "/playlists" for ::1 at 2021-02-26 09:17:57 -0700
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PlaylistsController#index as HTML
+  [1m[36mPlaylist Load (0.6ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists"[0m
+  ↳ app/controllers/playlists_controller.rb:8:in `index'
+Completed 200 OK in 19ms (Views: 5.0ms | ActiveRecord: 5.6ms | Allocations: 7102)
+
+
+Started GET "/playlists" for ::1 at 2021-02-26 09:17:58 -0700
+Processing by PlaylistsController#index as HTML
+  [1m[36mPlaylist Load (0.2ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists"[0m
+  ↳ app/controllers/playlists_controller.rb:8:in `index'
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.2ms | Allocations: 862)
+
+
+Started GET "/playlists" for ::1 at 2021-02-26 09:18:41 -0700
+Processing by PlaylistsController#index as HTML
+  [1m[36mPlaylist Load (0.4ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists"[0m
+  ↳ app/controllers/playlists_controller.rb:8:in `index'
+Completed 200 OK in 12ms (Views: 5.1ms | ActiveRecord: 5.2ms | Allocations: 3712)
+
+
+Started GET "/playlists" for ::1 at 2021-02-26 09:18:42 -0700
+Processing by PlaylistsController#index as HTML
+  [1m[36mPlaylist Load (0.2ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists"[0m
+  ↳ app/controllers/playlists_controller.rb:8:in `index'
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.2ms | Allocations: 807)
+
+
+Started GET "/playlists/1" for ::1 at 2021-02-26 09:19:21 -0700
+Processing by PlaylistsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPlaylist Load (0.3ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/playlists_controller.rb:44:in `set_playlist'
+  [1m[36mSong Load (0.4ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."playlist_id" = $1[0m  [["playlist_id", 1]]
+  ↳ app/controllers/playlists_controller.rb:13:in `show'
+Completed 200 OK in 32ms (Views: 0.1ms | ActiveRecord: 5.0ms | Allocations: 11030)
+
+
+Started GET "/playlists" for ::1 at 2021-02-26 09:19:24 -0700
+Processing by PlaylistsController#index as HTML
+  [1m[36mPlaylist Load (0.3ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists"[0m
+  ↳ app/controllers/playlists_controller.rb:8:in `index'
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.3ms | Allocations: 808)
+
+
+Started GET "/playlists" for ::1 at 2021-02-26 09:19:39 -0700
+Processing by PlaylistsController#index as HTML
+  [1m[36mPlaylist Load (0.2ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists"[0m
+  ↳ app/controllers/playlists_controller.rb:8:in `index'
+  [1m[36mSong Load (0.3ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."playlist_id" = $1[0m  [["playlist_id", 1]]
+  ↳ app/controllers/playlists_controller.rb:8:in `index'
+  [1m[36mSong Load (0.3ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."playlist_id" = $1[0m  [["playlist_id", 2]]
+  ↳ app/controllers/playlists_controller.rb:8:in `index'
+Completed 200 OK in 29ms (Views: 0.1ms | ActiveRecord: 8.7ms | Allocations: 10320)
+
+
+Started GET "/playlists/1" for ::1 at 2021-02-26 09:23:47 -0700
+Processing by PlaylistsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPlaylist Load (0.3ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/playlists_controller.rb:44:in `set_playlist'
+  [1m[36mSong Load (0.3ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."playlist_id" = $1[0m  [["playlist_id", 1]]
+  ↳ app/controllers/playlists_controller.rb:13:in `show'
+Completed 200 OK in 33ms (Views: 0.2ms | ActiveRecord: 10.5ms | Allocations: 9702)
+
+
+Started GET "/playlists/1" for ::1 at 2021-02-26 09:23:55 -0700
+Processing by PlaylistsController#show as */*
+  Parameters: {"title"=>"Bageera", "content"=>"Bear Necesities", "author"=>"Jungle Book", "id"=>"1", "playlist"=>{}}
+  [1m[36mPlaylist Load (0.2ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/playlists_controller.rb:44:in `set_playlist'
+  [1m[36mSong Load (0.4ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."playlist_id" = $1[0m  [["playlist_id", 1]]
+  ↳ app/controllers/playlists_controller.rb:13:in `show'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.6ms | Allocations: 2798)
+
+
+Started POST "/playlists/1?title=Be%20Our%20Guest&artist=Lumiere&time=3:12" for ::1 at 2021-02-26 09:24:43 -0700
+  
+ActionController::RoutingError (No route matches [POST] "/playlists/1"):
+  
+Started POST "/playlists/1?title=Be%20Our%20Guest&artist=Lumiere&time=3:12" for ::1 at 2021-02-26 09:25:33 -0700
+  
+ActionController::RoutingError (No route matches [POST] "/playlists/1"):
+  
+Started POST "/playlists/1" for ::1 at 2021-02-26 09:25:41 -0700
+  
+ActionController::RoutingError (No route matches [POST] "/playlists/1"):
+  
+Started POST "/playlists/1/songs" for ::1 at 2021-02-26 09:30:22 -0700
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SongsController#create as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>"1", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>"1"}}
+[31mUnpermitted parameter: :playlist_id[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:21:in `create'
+  [1m[36mPlaylist Load (0.5ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:21:in `create'
+  [1m[36mSong Create (0.8ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Be Our Guest"], ["artist", "Lumiere"], ["time", "2:35"], ["created_at", "2021-02-26 16:30:22.358022"], ["updated_at", "2021-02-26 16:30:22.358022"], ["playlist_id", 1]]
+  ↳ app/controllers/songs_controller.rb:21:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:21:in `create'
+Completed 201 Created in 40ms (Views: 0.4ms | ActiveRecord: 11.0ms | Allocations: 14451)
+
+
+Started GET "/playlists/1" for ::1 at 2021-02-26 09:30:28 -0700
+Processing by PlaylistsController#show as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1, "id"=>"1", "playlist"=>{}}
+  [1m[36mPlaylist Load (0.4ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/playlists_controller.rb:44:in `set_playlist'
+  [1m[36mSong Load (0.4ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."playlist_id" = $1[0m  [["playlist_id", 1]]
+  ↳ app/controllers/playlists_controller.rb:13:in `show'
+Completed 200 OK in 12ms (Views: 0.1ms | ActiveRecord: 0.8ms | Allocations: 4300)
+
+
+Started DELETE "/songs/15" for ::1 at 2021-02-26 09:34:16 -0700
+  
+ActionController::RoutingError (No route matches [DELETE] "/songs/15"):
+  
+Started GET "/songs/15" for ::1 at 2021-02-26 09:34:20 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/songs/15"):
+  
+Started GET "/songs/15" for ::1 at 2021-02-26 09:35:06 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/songs/15"):
+  
+Started GET "/songs/15" for ::1 at 2021-02-26 09:35:19 -0700
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/songs/15"):
+  
+Started GET "/songs/15" for ::1 at 2021-02-26 09:35:54 -0700
+Processing by SongsController#show as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1, "id"=>"15", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1}}
+  [1m[36mSong Load (0.5ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+Completed 200 OK in 17ms (Views: 0.7ms | ActiveRecord: 6.5ms | Allocations: 6690)
+
+
+Started DELETE "/songs/15" for ::1 at 2021-02-26 09:35:59 -0700
+Processing by SongsController#destroy as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1, "id"=>"15", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1}}
+  [1m[36mSong Load (0.5ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:39:in `destroy'
+  [1m[36mSong Destroy (22.9ms)[0m  [1m[31mDELETE FROM "songs" WHERE "songs"."id" = $1[0m  [["id", 15]]
+  ↳ app/controllers/songs_controller.rb:39:in `destroy'
+  [1m[36mTRANSACTION (52.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:39:in `destroy'
+Completed 204 No Content in 82ms (ActiveRecord: 76.2ms | Allocations: 1966)
+
+
+Started GET "/songs/15" for ::1 at 2021-02-26 09:36:03 -0700
+Processing by SongsController#show as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1, "id"=>"15", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1}}
+  [1m[36mSong Load (0.3ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.3ms | Allocations: 534)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Song with 'id'=15):
+  
+app/controllers/songs_controller.rb:45:in `set_song'
+Started GET "/songs" for ::1 at 2021-02-26 09:36:07 -0700
+Processing by SongsController#index as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1, "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1}}
+  [1m[36mSong Load (0.5ms)[0m  [1m[34mSELECT "songs".* FROM "songs"[0m
+  ↳ app/controllers/songs_controller.rb:8:in `index'
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.5ms | Allocations: 2223)
+
+
+Started POST "/songs" for ::1 at 2021-02-26 09:37:07 -0700
+Processing by SongsController#create as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1, "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1}}
+[31mUnpermitted parameter: :playlist_id[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:21:in `create'
+  [1m[36mPlaylist Load (0.4ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:21:in `create'
+  [1m[36mSong Create (0.6ms)[0m  [1m[32mINSERT INTO "songs" ("title", "artist", "time", "created_at", "updated_at", "playlist_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Be Our Guest"], ["artist", "Lumiere"], ["time", "2:35"], ["created_at", "2021-02-26 16:37:07.784946"], ["updated_at", "2021-02-26 16:37:07.784946"], ["playlist_id", 1]]
+  ↳ app/controllers/songs_controller.rb:21:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:21:in `create'
+Completed 201 Created in 28ms (Views: 0.3ms | ActiveRecord: 6.4ms | Allocations: 8909)
+
+
+Started PUT "/songs/16" for ::1 at 2021-02-26 09:37:44 -0700
+Processing by SongsController#update as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2}}
+  [1m[36mSong Load (0.5ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+[31mUnpermitted parameter: :playlist_id[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mPlaylist Load (0.3ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 1.2ms | Allocations: 2685)
+
+
+Started GET "/songs/16" for ::1 at 2021-02-26 09:37:52 -0700
+Processing by SongsController#show as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2}}
+  [1m[36mSong Load (0.4ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.4ms | Allocations: 674)
+
+
+Started PUT "/songs/16" for ::1 at 2021-02-26 09:37:58 -0700
+Processing by SongsController#update as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2}}
+  [1m[36mSong Load (0.6ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+[31mUnpermitted parameter: :playlist_id[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mPlaylist Load (0.5ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+Completed 200 OK in 9ms (Views: 0.4ms | ActiveRecord: 1.4ms | Allocations: 2644)
+
+
+Started PUT "/songs/16" for ::1 at 2021-02-26 09:44:49 -0700
+Processing by SongsController#update as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2}}
+  [1m[36mSong Load (0.5ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+[31mUnpermitted parameter: :playlist_id[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mPlaylist Load (0.7ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+Completed 200 OK in 33ms (Views: 0.5ms | ActiveRecord: 11.5ms | Allocations: 4778)
+
+
+Started GET "/songs/16" for ::1 at 2021-02-26 09:44:54 -0700
+Processing by SongsController#show as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2}}
+  [1m[36mSong Load (0.3ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.3ms | Allocations: 657)
+
+
+  [1m[36mSong Load (0.5ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlaylist Load (0.3ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSong Update (0.5ms)[0m  [1m[33mUPDATE "songs" SET "updated_at" = $1, "playlist_id" = $2 WHERE "songs"."id" = $3[0m  [["updated_at", "2021-02-26 16:45:44.626798"], ["playlist_id", 2], ["id", 16]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSong Load (0.7ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+Started GET "/songs/16" for ::1 at 2021-02-26 09:46:34 -0700
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SongsController#show as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2}}
+  [1m[36mSong Load (0.6ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+Completed 200 OK in 16ms (Views: 0.7ms | ActiveRecord: 5.7ms | Allocations: 6712)
+
+
+Started PATCH "/songs/16" for ::1 at 2021-02-26 09:47:17 -0700
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SongsController#update as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1}}
+  [1m[36mSong Load (0.5ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+[31mUnpermitted parameter: :playlist_id[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mPlaylist Load (0.5ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+Completed 200 OK in 34ms (Views: 0.4ms | ActiveRecord: 10.0ms | Allocations: 14402)
+
+
+Started GET "/playlists/1" for ::1 at 2021-02-26 09:49:03 -0700
+Processing by PlaylistsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPlaylist Load (0.4ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/playlists_controller.rb:44:in `set_playlist'
+  [1m[36mSong Load (0.2ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."playlist_id" = $1[0m  [["playlist_id", 1]]
+  ↳ app/controllers/playlists_controller.rb:13:in `show'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 0.6ms | Allocations: 4116)
+
+
+Started GET "/songs" for ::1 at 2021-02-26 09:49:13 -0700
+Processing by SongsController#index as HTML
+  [1m[36mSong Load (0.3ms)[0m  [1m[34mSELECT "songs".* FROM "songs"[0m
+  ↳ app/controllers/songs_controller.rb:8:in `index'
+Completed 200 OK in 4ms (Views: 3.5ms | ActiveRecord: 0.3ms | Allocations: 2329)
+
+
+Started GET "/songs/16" for ::1 at 2021-02-26 09:49:15 -0700
+Processing by SongsController#show as HTML
+  Parameters: {"id"=>"16"}
+  [1m[36mSong Load (0.3ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.3ms | Allocations: 654)
+
+
+Started PATCH "/songs/16" for ::1 at 2021-02-26 09:49:22 -0700
+Processing by SongsController#update as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>2}}
+  [1m[36mSong Load (0.4ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+[31mUnpermitted parameter: :playlist_id[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mPlaylist Load (0.3ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+Completed 200 OK in 6ms (Views: 0.2ms | ActiveRecord: 1.0ms | Allocations: 2649)
+
+
+Started PATCH "/songs/16" for ::1 at 2021-02-26 09:49:26 -0700
+Processing by SongsController#update as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1}}
+  [1m[36mSong Load (0.6ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+[31mUnpermitted parameter: :playlist_id[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mPlaylist Load (2.0ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+Completed 200 OK in 12ms (Views: 0.5ms | ActiveRecord: 3.0ms | Allocations: 2649)
+
+
+Started GET "/songs/16" for ::1 at 2021-02-26 09:49:29 -0700
+Processing by SongsController#show as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1}}
+  [1m[36mSong Load (0.3ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.3ms | Allocations: 657)
+
+
+Started PUT "/songs/16" for ::1 at 2021-02-26 09:50:24 -0700
+Processing by SongsController#update as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1}}
+  [1m[36mSong Load (0.4ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+[31mUnpermitted parameter: :playlist_id[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mPlaylist Load (0.5ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+Completed 200 OK in 31ms (Views: 0.4ms | ActiveRecord: 1.3ms | Allocations: 2666)
+
+
+Started PUT "/songs/16" for ::1 at 2021-02-26 09:51:26 -0700
+Processing by SongsController#update as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Coggsworth", "time"=>"2:35", "playlist_id"=>1, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Coggsworth", "time"=>"2:35", "playlist_id"=>1}}
+  [1m[36mSong Load (0.3ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+[31mUnpermitted parameter: :playlist_id[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mPlaylist Load (0.3ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mSong Update (0.7ms)[0m  [1m[33mUPDATE "songs" SET "artist" = $1, "updated_at" = $2 WHERE "songs"."id" = $3[0m  [["artist", "Coggsworth"], ["updated_at", "2021-02-26 16:51:26.860858"], ["id", 16]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+Completed 200 OK in 11ms (Views: 0.4ms | ActiveRecord: 1.9ms | Allocations: 3371)
+
+
+Started PUT "/songs/16" for ::1 at 2021-02-26 09:51:39 -0700
+Processing by SongsController#update as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1}}
+  [1m[36mSong Load (0.2ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+[31mUnpermitted parameter: :playlist_id[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mPlaylist Load (0.2ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mSong Update (0.8ms)[0m  [1m[33mUPDATE "songs" SET "artist" = $1, "updated_at" = $2 WHERE "songs"."id" = $3[0m  [["artist", "Lumiere"], ["updated_at", "2021-02-26 16:51:39.502208"], ["id", 16]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+Completed 200 OK in 11ms (Views: 0.3ms | ActiveRecord: 1.7ms | Allocations: 3250)
+
+
+Started PUT "/songs/16" for ::1 at 2021-02-26 09:54:21 -0700
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SongsController#update as */*
+  Parameters: {"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1, "id"=>"16", "song"=>{"title"=>"Be Our Guest", "artist"=>"Lumiere", "time"=>"2:35", "playlist_id"=>1}}
+  [1m[36mSong Load (0.7ms)[0m  [1m[34mSELECT "songs".* FROM "songs" WHERE "songs"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:45:in `set_song'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mPlaylist Load (0.5ms)[0m  [1m[34mSELECT "playlists".* FROM "playlists" WHERE "playlists"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mSong Update (0.7ms)[0m  [1m[33mUPDATE "songs" SET "updated_at" = $1, "playlist_id" = $2 WHERE "songs"."id" = $3[0m  [["updated_at", "2021-02-26 16:54:22.021865"], ["playlist_id", 1], ["id", 16]]
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/songs_controller.rb:30:in `update'
+Completed 200 OK in 51ms (Views: 0.8ms | ActiveRecord: 15.3ms | Allocations: 15115)
+
+
